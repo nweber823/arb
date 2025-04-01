@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Strategy Diagram SVG -->
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2ecc71;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#27ae60;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8e44ad;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="800" height="600" fill="#f8f9fa" />
+  
+  <!-- Title -->
+  <text x="400" y="50" font-family="Montserrat, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#2c3e50">Arbitrage Strategy Framework</text>
+  
+  <!-- Central Core -->
+  <circle cx="400" cy="300" r="120" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" />
+  <text x="400" y="280" font-family="Montserrat, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#2c3e50">Statistical</text>
+  <text x="400" y="310" font-family="Montserrat, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#2c3e50">Pairs Trading</text>
+  <text x="400" y="340" font-family="Montserrat, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#2c3e50">Core</text>
+  
+  <!-- Component 1: Pair Selection -->
+  <rect x="100" y="120" rx="10" ry="10" width="180" height="80" fill="url(#blueGradient)" />
+  <text x="190" y="165" font-family="Montserrat, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Pair Selection</text>
+  <line x1="280" y1="160" x2="320" y2="220" stroke="#3498db" stroke-width="3" stroke-dasharray="5,5" />
+  
+  <!-- Component 2: Signal Generation -->
+  <rect x="100" y="260" rx="10" ry="10" width="180" height="80" fill="url(#redGradient)" />
+  <text x="190" y="305" font-family="Montserrat, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Signal Generation</text>
+  <line x1="280" y1="300" x2="320" y2="300" stroke="#e74c3c" stroke-width="3" stroke-dasharray="5,5" />
+  
+  <!-- Component 3: Position Sizing -->
+  <rect x="100" y="400" rx="10" ry="10" width="180" height="80" fill="url(#greenGradient)" />
+  <text x="190" y="445" font-family="Montserrat, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Position Sizing</text>
+  <line x1="280" y1="440" x2="320" y2="380" stroke="#2ecc71" stroke-width="3" stroke-dasharray="5,5" />
+  
+  <!-- Component 4: Merger Arbitrage -->
+  <rect x="520" y="120" rx="10" ry="10" width="180" height="80" fill="url(#purpleGradient)" />
+  <text x="610" y="165" font-family="Montserrat, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Merger Arbitrage</text>
+  <line x1="520" y1="160" x2="480" y2="220" stroke="#9b59b6" stroke-width="3" stroke-dasharray="5,5" />
+  
+  <!-- Component 5: Earnings Filter -->
+  <rect x="520" y="260" rx="10" ry="10" width="180" height="80" fill="url(#blueGradient)" />
+  <text x="610" y="305" font-family="Montserrat, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Earnings Filter</text>
+  <line x1="520" y1="300" x2="480" y2="300" stroke="#3498db" stroke-width="3" stroke-dasharray="5,5" />
+  
+  <!-- Component 6: Analyst Sentiment -->
+  <rect x="520" y="400" rx="10" ry="10" width="180" height="80" fill="url(#redGradient)" />
+  <text x="610" y="445" font-family="Montserrat, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Analyst Sentiment</text>
+  <line x1="520" y1="440" x2="480" y2="380" stroke="#e74c3c" stroke-width="3" stroke-dasharray="5,5" />
+  
+  <!-- Labels -->
+  <text x="190" y="100" font-family="Montserrat, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#2c3e50">Statistical Components</text>
+  <text x="610" y="100" font-family="Montserrat, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#2c3e50">Event-Driven Components</text>
+  
+  <!-- Bottom Label -->
+  <text x="400" y="520" font-family="Montserrat, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#2c3e50">Risk Management Framework</text>
+  <rect x="200" y="540" rx="10" ry="10" width="400" height="40" fill="#34495e" />
+  <text x="400" y="565" font-family="Montserrat, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Position-Level and Portfolio-Level Controls</text>
+</svg>

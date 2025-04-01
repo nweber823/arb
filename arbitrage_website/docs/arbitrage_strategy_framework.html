@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbitrage Strategy Framework - ArbitragePro</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .documentation-content {
+            padding: 40px 0;
+        }
+        .documentation-content h1, 
+        .documentation-content h2, 
+        .documentation-content h3, 
+        .documentation-content h4 {
+            color: var(--primary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .documentation-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .documentation-content h2 {
+            font-size: 2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .documentation-content h3 {
+            font-size: 1.5rem;
+        }
+        .documentation-content h4 {
+            font-size: 1.2rem;
+        }
+        .documentation-content p {
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .documentation-content ul, 
+        .documentation-content ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        .documentation-content li {
+            margin-bottom: 10px;
+        }
+        .documentation-content img {
+            max-width: 100%;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: var(--box-shadow);
+        }
+        .documentation-content code {
+            background-color: #f8f9fa;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .documentation-content pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        .documentation-content pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        .documentation-content blockquote {
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 20px;
+            margin-left: 0;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .documentation-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .documentation-content table th,
+        .documentation-content table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .documentation-content table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        .documentation-content table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .toc h3 {
+            margin-top: 0;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc ul ul {
+            padding-left: 20px;
+        }
+        .toc li {
+            margin-bottom: 5px;
+        }
+        .toc a {
+            text-decoration: none;
+            color: var(--secondary-color);
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .back-to-top:hover {
+            opacity: 1;
+        }
+        .framework-diagram {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .framework-diagram img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Arbitrage<span>Pro</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#strategy">Strategy</a></li>
+                    <li><a href="../index.html#performance">Performance</a></li>
+                    <li><a href="../index.html#implementation">Implementation</a></li>
+                    <li><a href="../index.html#documentation" class="active">Documentation</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="documentation-page">
+        <div class="container">
+            <div class="documentation-content">
+                <h1>Arbitrage Strategy Framework</h1>
+                
+                <div class="toc">
+                    <h3>Table of Contents</h3>
+                    <ul>
+                        <li><a href="#introduction">1. Introduction</a></li>
+                        <li><a href="#framework-overview">2. Framework Overview</a></li>
+                        <li><a href="#statistical-core">3. Statistical Pairs Trading Core</a>
+                            <ul>
+                                <li><a href="#pair-selection">3.1 Pair Selection</a></li>
+                                <li><a href="#signal-generation">3.2 Signal Generation</a></li>
+                                <li><a href="#position-sizing">3.3 Position Sizing</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#event-driven">4. Event-Driven Components</a>
+                            <ul>
+                                <li><a href="#merger-arbitrage">4.1 Merger Arbitrage Filter</a></li>
+                                <li><a href="#earnings-filter">4.2 Earnings Announcement Filter</a></li>
+                                <li><a href="#analyst-sentiment">4.3 Analyst Sentiment Integration</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#risk-management">5. Risk Management Framework</a></li>
+                        <li><a href="#implementation">6. Implementation Architecture</a></li>
+                        <li><a href="#optimization">7. Optimization and Adaptation</a></li>
+                        <li><a href="#conclusion">8. Conclusion</a></li>
+                    </ul>
+                </div>
+
+                <div class="framework-diagram">
+                    <img src="../images/strategy-diagram.svg" alt="Arbitrage Strategy Framework Diagram">
+                    <p><em>Figure 1: Arbitrage Strategy Framework Overview</em></p>
+                </div>
+
+                <h2 id="introduction">1. Introduction</h2>
+                
+                <p>This document presents a comprehensive framework for implementing an arbitrage trading strategy that combines statistical methods with event-driven components. The framework is designed to identify and exploit price inefficiencies across financial markets while maintaining robust risk management controls.</p>
+                
+                <p>Arbitrage trading seeks to profit from price discrepancies between related financial instruments. In perfectly efficient markets, such discrepancies would not exist, but real-world markets exhibit inefficiencies due to information asymmetry, market frictions, and behavioral biases. Our framework leverages these inefficiencies through a multi-faceted approach that balances statistical rigor with event-driven insights.</p>
+                
+                <p>The core of our strategy is a statistical pairs trading model that identifies cointegrated securities and exploits temporary deviations in their price relationships. This statistical core is enhanced with event-driven components that leverage corporate events, insider trading patterns, and analyst sentiment to improve signal quality and manage risk around high-volatility events.</p>
+
+                <h2 id="framework-overview">2. Framework Overview</h2>
+                
+                <p>Our arbitrage strategy framework consists of several integrated components that work together to identify, evaluate, and execute profitable trading opportunities. The key components include:</p>
+                
+                <h3>Core Philosophy</h3>
+                <p>The framework is built on the following core principles:</p>
+                <ul>
+                    <li><strong>Statistical Foundation</strong>: Utilizing robust statistical methods to identify persistent relationships between securities.</li>
+                    <li><strong>Multi-Factor Approach</strong>: Combining price-based signals with fundamental and event-driven factors.</li>
+                    <li><strong>Risk Management Focus</strong>: Prioritizing capital preservation through strict risk controls.</li>
+                    <li><strong>Adaptability</strong>: Continuously recalibrating to changing market conditions.</li>
+                    <li><strong>Diversification</strong>: Spreading risk across multiple pairs and sectors.</li>
+                </ul>
+                
+                <h3>Framework Components</h3>
+                <p>The framework consists of four main components:</p>
+                <ol>
+                    <li><strong>Statistical Pairs Trading Core</strong>: The foundation of the strategy, identifying cointegrated pairs and generating trading signals based on statistical relationships.</li>
+                    <li><strong>Event-Driven Components</strong>: Enhancing the statistical signals with event-based filters and indicators.</li>
+                    <li><strong>Risk Management Framework</strong>: Comprehensive risk controls at both position and portfolio levels.</li>
+                    <li><strong>Implementation Architecture</strong>: The technical infrastructure for data collection, signal generation, and execution.</li>
+                </ol>
+                
+                <h3>Integration Approach</h3>
+                <p>These components are integrated through a modular architecture that allows for:</p>
+                <ul>
+                    <li><strong>Signal Combination</strong>: Statistical and event-driven signals are combined using a weighted approach that considers signal strength and reliability.</li>
+                    <li><strong>Risk Overlay</strong>: Risk management rules are applied as an overlay to all trading decisions.</li>
+                    <li><strong>Feedback Loop</strong>: Performance metrics feed back into the system to optimize parameters and weights.</li>
+                    <li><strong>Continuous Improvement</strong>: The framework is designed for ongoing refinement and adaptation.</li>
+                </ul>
+
+                <h2 id="statistical-core">3. Statistical Pairs Trading Core</h2>
+                
+                <p>The statistical pairs trading core is the foundation of our arbitrage strategy. It identifies pairs of securities with stable statistical relationships and generates trading signals based on deviations from these relationships.</p>
+                
+                <h3 id="pair-selection">3.1 Pair Selection</h3>
+                
+                <p>The pair selection process identifies securities with stable, mean-reverting relationships that can be exploited for arbitrage opportunities.</p>
+                
+                <h4>Methodology</h4>
+                <ol>
+                    <li><strong>Universe Definition</strong>: Start with a universe of liquid securities, typically focusing on stocks within the same sector or industry to ensure fundamental similarity.</li>
+                    <li><strong>Correlation Analysis</strong>: Calculate pairwise correlations between securities to identify potentially related pairs.
+                        <ul>
+                            <li>Calculate rolling correlations over multiple timeframes (e.g., 30, 60, 90 days)</li>
+                            <li>Filter pairs with correlation coefficients above a threshold (e.g., 0.7)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Cointegration Testing</strong>: Apply the Augmented Dickey-Fuller (ADF) test to identify cointegrated pairs.
+                        <ul>
+                            <li>Test the stationarity of the spread between paired securities</li>
+                            <li>Filter pairs with p-values below a threshold (e.g., 0.05)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Half-Life Calculation</strong>: Calculate the half-life of mean reversion for cointegrated pairs.
+                        <ul>
+                            <li>Estimate the speed at which the spread reverts to its mean</li>
+                            <li>Filter pairs with half-lives within a desired range (e.g., 5-30 days)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Fundamental Similarity Check</strong>: Verify that paired securities have similar fundamental characteristics.
+                        <ul>
+                            <li>Compare business models, market cap, growth rates, and other relevant metrics</li>
+                            <li>Ensure pairs are exposed to similar risk factors</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <h4>Implementation</h4>
+                <pre><code>def identify_pairs(symbols, correlation_threshold=0.7, pvalue_threshold=0.05, 
+                  min_half_life=5, max_half_life=30):
+    """
+    Identify cointegrated pairs from a list of symbols
+    
+    Parameters:
+    symbols (list): List of stock symbols to analyze
+    correlation_threshold (float): Minimum correlation coefficient
+    pvalue_threshold (float): Maximum p-value for cointegration test
+    min_half_life (int): Minimum half-life of mean reversion (days)
+    max_half_life (int): Maximum half-life of mean reversion (days)
+    
+    Returns:
+    list: Pairs of cointegrated stocks with correlation and cointegration statistics
+    """
+    # Load price data for all symbols
+    price_data = load_price_data(symbols)
+    
+    # Calculate correlation matrix
+    correlation_matrix = calculate_correlation_matrix(price_data)
+    
+    # Filter pairs based on correlation
+    correlated_pairs = filter_by_correlation(correlation_matrix, correlation_threshold)
+    
+    # Test for cointegration
+    cointegrated_pairs = []
+    for pair in correlated_pairs:
+        symbol1, symbol2 = pair
+        
+        # Get price series
+        series1 = price_data[symbol1]['close']
+        series2 = price_data[symbol2]['close']
+        
+        # Calculate spread
+        spread = calculate_spread(series1, series2)
+        
+        # Test for cointegration
+        adf_result = adfuller(spread)
+        adf_pvalue = adf_result[1]
+        
+        if adf_pvalue < pvalue_threshold:
+            # Calculate half-life of mean reversion
+            half_life = calculate_half_life(spread)
+            
+            # Filter by half-life
+            if min_half_life <= half_life <= max_half_life:
+                pair_info = {
+                    'symbol1': symbol1,
+                    'symbol2': symbol2,
+                    'correlation': correlation_matrix.loc[symbol1, symbol2],
+                    'adf_pvalue': adf_pvalue,
+                    'half_life': half_life
+                }
+                cointegrated_pairs.append(pair_info)
+    
+    return cointegrated_pairs</code></pre>
+                
+                <h3 id="signal-generation">3.2 Signal Generation</h3>
+                
+                <p>Once cointegrated pairs are identified, we generate trading signals based on deviations from their statistical relationship.</p>
+                
+                <h4>Methodology</h4>
+                <ol>
+                    <li><strong>Spread Calculation</strong>: Calculate the spread between paired securities.
+                        <ul>
+                            <li>For price-based spreads: Spread = Price1 - (Beta * Price2)</li>
+                            <li>For return-based spreads: Spread = Return1 - (Beta * Return2)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Z-Score Calculation</strong>: Calculate the z-score of the spread.
+                        <ul>
+                            <li>Z-score = (Current Spread - Mean Spread) / Standard Deviation of Spread</li>
+                            <li>Use rolling windows for mean and standard deviation calculation</li>
+                        </ul>
+                    </li>
+                    <li><strong>Signal Generation</strong>: Generate trading signals based on z-score thresholds.
+                        <ul>
+                            <li>Entry Signal: When z-score exceeds threshold in either direction</li>
+                            <li>Exit Signal: When z-score reverts to mean or crosses opposite threshold</li>
+                        </ul>
+                    </li>
+                    <li><strong>Signal Confirmation</strong>: Apply additional filters to confirm signals.
+                        <ul>
+                            <li>Technical indicators (e.g., RSI, MACD)</li>
+                            <li>Volume filters to ensure liquidity</li>
+                            <li>Volatility conditions to manage risk</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <h4>Implementation</h4>
+                <pre><code>def generate_signals(pair_info, price_data, z_entry_threshold=2.0, z_exit_threshold=0.5):
+    """
+    Generate trading signals based on z-score of the spread
+    
+    Parameters:
+    pair_info (dict): Pair information including symbols and beta
+    price_data (dict): Price data for all symbols
+    z_entry_threshold (float): Z-score threshold for entry signals
+    z_exit_threshold (float): Z-score threshold for exit signals
+    
+    Returns:
+    DataFrame: Trading signals with timestamps
+    """
+    symbol1 = pair_info['symbol1']
+    symbol2 = pair_info['symbol2']
+    beta = pair_info['beta']
+    
+    # Get price series
+    series1 = price_data[symbol1]['close']
+    series2 = price_data[symbol2]['close']
+    
+    # Calculate spread
+    spread = series1 - (beta * series2)
+    
+    # Calculate rolling mean and standard deviation
+    window = 20  # 20-day rolling window
+    spread_mean = spread.rolling(window=window).mean()
+    spread_std = spread.rolling(window=window).std()
+    
+    # Calculate z-score
+    z_score = (spread - spread_mean) / spread_std
+    
+    # Generate signals
+    signals = pd.DataFrame(index=z_score.index)
+    signals['z_score'] = z_score
+    
+    # Entry signals
+    signals['entry_long'] = (z_score < -z_entry_threshold).astype(int)
+    signals['entry_short'] = (z_score > z_entry_threshold).astype(int)
+    
+    # Exit signals
+    signals['exit_long'] = ((z_score > -z_exit_threshold) | (z_score > z_entry_threshold)).astype(int)
+    signals['exit_short'] = ((z_score < z_exit_threshold) | (z_score < -z_entry_threshold)).astype(int)
+    
+    # Apply additional filters
+    signals = apply_signal_filters(signals, pair_info, price_data)
+    
+    return signals</code></pre>
+                
+                <h3 id="position-sizing">3.3 Position Sizing</h3>
+                
+                <p>Proper position sizing is critical for risk management and optimal capital allocation.</p>
+                
+                <h4>Methodology</h4>
+                <ol>
+                    <li><strong>Beta-Neutral Sizing</strong>: Calculate position sizes to achieve beta neutrality.
+                        <ul>
+                            <li>Adjust for differences in beta between paired securities</li>
+                            <li>Ensure the portfolio has minimal exposure to market movements</li>
+                        </ul>
+                    </li>
+                    <li><strong>Dollar-Neutral Sizing</strong>: Ensure equal dollar amounts for long and short positions.
+                        <ul>
+                            <li>Adjust for price differences between paired securities</li>
+                            <li>Maintain balance between long and short exposure</li>
+                        </ul>
+                    </li>
+                    <li><strong>Risk-Based Sizing</strong>: Adjust position sizes based on risk metrics.
+                        <ul>
+                            <li>Scale positions based on spread volatility</li>
+                            <li>Allocate more capital to pairs with more stable relationships</li>
+                            <li>Consider correlation with existing positions</li>
+                        </ul>
+                    </li>
+                    <li><strong>Portfolio Allocation</strong>: Distribute capital across multiple pairs.
+                        <ul>
+                            <li>Limit exposure to any single pair (e.g., 5-10% of portfolio)</li>
+                            <li>Diversify across sectors and industries</li>
+                            <li>Balance between different types of arbitrage opportunities</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <h4>Implementation</h4>
+                <pre><code>def calculate_position_sizes(pair_info, signal, portfolio_value, max_allocation=0.1):
+    """
+    Calculate position sizes for a pair trade
+    
+    Parameters:
+    pair_info (dict): Pair information including symbols and beta
+    signal (dict): Signal information including direction and strength
+    portfolio_value (float): Total portfolio value
+    max_allocation (float): Maximum allocation to a single pair
+    
+    Returns:
+    dict: Position sizes for each symbol in the pair
+    """
+    symbol1 = pair_info['symbol1']
+    symbol2 = pair_info['symbol2']
+    beta = pair_info['beta']
+    
+    # Get current prices
+    price1 = get_current_price(symbol1)
+    price2 = get_current_price(symbol2)
+    
+    # Determine signal direction
+    if signal['entry_long'] == 1:
+        # Long symbol1, short symbol2
+        direction1 = 1
+        direction2 = -1
+    elif signal['entry_short'] == 1:
+        # Short symbol1, long symbol2
+        direction1 = -1
+        direction2 = 1
+    else:
+        # No position
+        return {symbol1: 0, symbol2: 0}
+    
+    # Calculate risk-adjusted allocation
+    spread_volatility = pair_info['spread_volatility']
+    allocation = max_allocation * (1 / spread_volatility)
+    allocation = min(allocation, max_allocation)  # Cap at maximum allocation
+    
+    # Calculate position value
+    position_value = portfolio_value * allocation
+    
+    # Calculate number of shares for dollar-neutral positions
+    shares1 = (position_value / 2) / price1
+    shares2 = (position_value / 2) / price2
+    
+    # Adjust for beta to achieve beta-neutrality
+    shares2 = shares2 * beta
+    
+    # Apply direction
+    shares1 = shares1 * direction1
+    shares2 = shares2 * direction2
+    
+    return {symbol1: shares1, symbol2: shares2}</code></pre>
+
+                <h2 id="event-driven">4. Event-Driven Components</h2>
+                
+                <p>To enhance the statistical pairs trading core, we incorporate event-driven components that leverage corporate events, insider trading patterns, and analyst sentiment.</p>
+                
+                <h3 id="merger-arbitrage">4.1 Merger Arbitrage Filter</h3>
+                
+                <p>The merger arbitrage filter identifies and manages positions affected by merger and acquisition announcements.</p>
+                
+                <h4>Methodology</h4>
+                <ol>
+                    <li><strong>Event Identification</strong>: Monitor for merger and acquisition announcements.
+                        <ul>
+                            <li>Track SEC filings (e.g., 8-K, 13D) for official announcements</li>
+                            <li>Monitor news and press releases for potential deals</li>
+                            <li>Analyze unusual price and volume movements that may indicate pending deals</li>
+                        </ul>
+                    </li>
+                    <li><strong>Deal Analysis</strong>: Evaluate the terms and likelihood of deal completion.
+                        <ul>
+                            <li>Calculate the spread between current price and acquisition price</li>
+                            <li>Assess regulatory hurdles and antitrust considerations</li>
+                            <li>Evaluate financing conditions and break-up fees</li>
+                        </ul>
+                    </li>
+                    <li><strong>Position Adjustment</strong>: Modify or exit positions affected by merger announcements.
+                        <ul>
+                            <li>Exit pairs where one stock is involved in a merger</li>
+                            <li>Adjust position sizing for pairs with merger exposure</li>
+                            <li>Consider pure merger arbitrage positions for attractive deals</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <h3 id="earnings-filter">4.2 Earnings Announcement Filter</h3>
+                
+                <p>The earnings announcement filter manages risk around earnings releases, which can cause significant price volatility and disrupt statistical relationships.</p>
+                
+                <h4>Methodology</h4>
+                <ol>
+                    <li><strong>Calendar Monitoring</strong>: Track upcoming earnings announcements.
+                        <ul>
+                            <li>Maintain a calendar of scheduled earnings releases</li>
+                            <li>Identify pairs where one or both stocks have upcoming earnings</li>
+                            <li>Monitor pre-announcement guidance and analyst expectations</li>
+                        </ul>
+                    </li>
+                    <li><strong>Historical Analysis</strong>: Analyze historical price behavior around earnings.
+                        <ul>
+                            <li>Calculate average price moves following earnings releases</li>
+                            <li>Identify patterns in how pairs behave around earnings</li>
+                            <li>Assess the impact of earnings surprises on pair relationships</li>
+                        </ul>
+                    </li>
+                    <li><strong>Risk Management</strong>: Implement risk controls around earnings events.
+                        <ul>
+                            <li>Reduce position sizes before earnings announcements</li>
+                            <li>Implement tighter stop-loss levels during earnings periods</li>
+                            <li>Consider using options to hedge earnings volatility</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <h3 id="analyst-sentiment">4.3 Analyst Sentiment Integration</h3>
+                
+                <p>The analyst sentiment component incorporates analyst opinions and recommendations to enhance trading signals.</p>
+                
+                <h4>Methodology</h4>
+                <ol>
+                    <li><strong>Sentiment Collection</strong>: Gather analyst opinions and recommendations.
+                        <ul>
+                            <li>Track rating changes (upgrades, downgrades, initiations)</li>
+                            <li>Monitor price target revisions</li>
+                            <li>Analyze research reports for qualitative insights</li>
+                        </ul>
+                    </li>
+                    <li><strong>Sentiment Differential</strong>: Calculate sentiment differences between paired securities.
+                        <ul>
+                            <li>Compare analyst ratings and price targets</li>
+                            <li>Identify divergences in analyst opinions</li>
+                            <li>Track changes in sentiment over time</li>
+                        </ul>
+                    </li>
+                    <li><strong>Signal Enhancement</strong>: Use sentiment to modify statistical signals.
+                        <ul>
+                            <li>Strengthen signals that align with analyst sentiment</li>
+                            <li>Weaken signals that contradict strong sentiment</li>
+                            <li>Use sentiment as a tie-breaker for borderline signals</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h2 id="risk-management">5. Risk Management Framework</h2>
+                
+                <p>Comprehensive risk management is essential for the long-term success of any arbitrage strategy. Our risk management framework operates at both position and portfolio levels.</p>
+                
+                <h3>Position-Level Risk Management</h3>
+                <ul>
+                    <li><strong>Stop-Loss Mechanisms</strong>:
+                        <ul>
+                            <li>Statistical stop-loss: Exit when z-score exceeds predefined thresholds</li>
+                            <li>Absolute stop-loss: Exit when loss exceeds predefined percentage</li>
+                            <li>Time-based stop-loss: Exit after maximum holding period</li>
+                        </ul>
+                    </li>
+                    <li><strong>Correlation Breakdown Protection</strong>:
+                        <ul>
+                            <li>Monitor correlation between paired securities</li>
+                            <li>Exit positions if correlation breaks down significantly</li>
+                            <li>Periodically retest cointegration relationship</li>
+                        </ul>
+                    </li>
+                    <li><strong>Event Risk Management</strong>:
+                        <ul>
+                            <li>Reduce exposure before high-impact events</li>
+                            <li>Implement hedges for event-specific risks</li>
+                            <li>Monitor news and announcements that could affect positions</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <h3>Portfolio-Level Risk Management</h3>
+                <ul>
+                    <li><strong>Diversification Rules</strong>:
+                        <ul>
+                            <li>Limit exposure to any single pair (e.g., 5-10% of portfolio)</li>
+                            <li>Limit exposure to any single sector (e.g., 20-30% of portfolio)</li>
+                            <li>Maintain minimum number of active pairs (e.g., 5-10 pairs)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Exposure Controls</strong>:
+                        <ul>
+                            <li>Maintain near-zero net market exposure</li>
+                            <li>Monitor and control factor exposures (size, value, momentum)</li>
+                            <li>Set maximum gross exposure (e.g., 150-200% of capital)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Drawdown Management</strong>:
+                        <ul>
+                            <li>Reduce overall exposure after predefined drawdown threshold</li>
+                            <li>Implement portfolio-level stop-loss</li>
+                            <li>Increase diversification during market stress</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h2 id="implementation">6. Implementation Architecture</h2>
+                
+                <p>The implementation architecture provides the technical infrastructure for executing the arbitrage strategy.</p>
+                
+                <div class="framework-diagram">
+                    <img src="../images/architecture-diagram.svg" alt="Arbitrage Implementation Architecture">
+                    <p><em>Figure 2: Implementation Architecture</em></p>
+                </div>
+                
+                <h3>System Components</h3>
+                <ul>
+                    <li><strong>Data Manager</strong>:
+                        <ul>
+                            <li>Collects and processes market data from various sources</li>
+                            <li>Maintains historical database for analysis and backtesting</li>
+                            <li>Ensures data quality and consistency</li>
+                        </ul>
+                    </li>
+                    <li><strong>Pair Analyzer</strong>:
+                        <ul>
+                            <li>Identifies cointegrated pairs using statistical tests</li>
+                            <li>Calculates and monitors pair relationships</li>
+                            <li>Updates pair universe based on changing market conditions</li>
+                        </ul>
+                    </li>
+                    <li><strong>Signal Generator</strong>:
+                        <ul>
+                            <li>Generates trading signals based on statistical and event-driven factors</li>
+                            <li>Combines signals from different components</li>
+                            <li>Applies signal filters and confirmation rules</li>
+                        </ul>
+                    </li>
+                    <li><strong>Position Manager</strong>:
+                        <ul>
+                            <li>Calculates optimal position sizes</li>
+                            <li>Implements risk management rules</li>
+                            <li>Generates execution orders</li>
+                        </ul>
+                    </li>
+                    <li><strong>Performance Analyzer</strong>:
+                        <ul>
+                            <li>Tracks strategy performance</li>
+                            <li>Calculates risk and return metrics</li>
+                            <li>Provides feedback for strategy optimization</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <h3>Technology Stack</h3>
+                <ul>
+                    <li><strong>Programming Language</strong>: Python for data analysis and strategy implementation</li>
+                    <li><strong>Data Analysis</strong>: Pandas, NumPy, and SciPy for data manipulation and statistical analysis</li>
+                    <li><strong>Statistical Modeling</strong>: StatsModels for cointegration testing and regression analysis</li>
+                    <li><strong>Visualization</strong>: Matplotlib and Seaborn for performance visualization</li>
+                    <li><strong>Data Storage</strong>: CSV files and JSON for data storage and retrieval</li>
+                    <li><strong>API Integration</strong>: Custom clients for Yahoo Finance APIs</li>
+                </ul>
+
+                <h2 id="optimization">7. Optimization and Adaptation</h2>
+                
+                <p>To maintain performance in changing market conditions, the strategy incorporates optimization and adaptation mechanisms.</p>
+                
+                <h3>Parameter Optimization</h3>
+                <ul>
+                    <li><strong>Z-Score Thresholds</strong>: Optimize entry and exit thresholds based on market volatility and pair characteristics.</li>
+                    <li><strong>Half-Life Filters</strong>: Adjust minimum and maximum half-life parameters based on market regime.</li>
+                    <li><strong>Position Sizing Parameters</strong>: Optimize allocation limits and risk-based sizing factors.</li>
+                    <li><strong>Signal Weights</strong>: Adjust the relative weights of statistical and event-driven signals.</li>
+                </ul>
+                
+                <h3>Adaptive Mechanisms</h3>
+                <ul>
+                    <li><strong>Dynamic Parameter Adjustment</strong>: Automatically adjust parameters based on market conditions.</li>
+                    <li><strong>Regime Detection</strong>: Identify different market regimes and adapt strategy accordingly.</li>
+                    <li><strong>Pair Rotation</strong>: Continuously update the universe of pairs based on changing relationships.</li>
+                    <li><strong>Performance Feedback</strong>: Use performance metrics to refine strategy components.</li>
+                </ul>
+                
+                <h3>Walk-Forward Testing</h3>
+                <ul>
+                    <li><strong>Methodology</strong>: Optimize parameters on in-sample data, test on out-of-sample data, roll forward and repeat.</li>
+                    <li><strong>Validation</strong>: Ensure consistent performance across different time periods.</li>
+                    <li><strong>Robustness</strong>: Test strategy under various market conditions and scenarios.</li>
+                </ul>
+
+                <h2 id="conclusion">8. Conclusion</h2>
+                
+                <p>The arbitrage strategy framework presented in this document provides a comprehensive approach to identifying and exploiting price inefficiencies across financial markets. By combining a statistical pairs trading core with event-driven components and robust risk management, the framework aims to generate consistent returns with minimal correlation to traditional asset classes.</p>
+                
+                <p>Key strengths of the framework include:</p>
+                <ul>
+                    <li><strong>Robust Statistical Foundation</strong>: Based on well-established cointegration principles and rigorous statistical testing.</li>
+                    <li><strong>Multi-Factor Approach</strong>: Combines price-based signals with fundamental and event-driven factors for improved signal quality.</li>
+                    <li><strong>Comprehensive Risk Management</strong>: Incorporates multiple layers of risk controls at position and portfolio levels.</li>
+                    <li><strong>Adaptability</strong>: Designed to adjust to changing market conditions through dynamic parameters and regime detection.</li>
+                    <li><strong>Modular Architecture</strong>: Allows for continuous improvement and extension of individual components.</li>
+                </ul>
+                
+                <p>The implementation of this framework requires careful attention to data quality, parameter optimization, and ongoing monitoring. With proper implementation and management, the strategy can provide attractive risk-adjusted returns and valuable diversification benefits for investment portfolios.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Arbitrage<span>Pro</span></h2>
+                    <p>Advanced arbitrage trading strategies</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../index.html#strategy">Strategy</a></li>
+                        <li><a href="../index.html#performance">Performance</a></li>
+                        <li><a href="../index.html#implementation">Implementation</a></li>
+                        <li><a href="../index.html#documentation">Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-docs">
+                    <h3>Documentation</h3>
+                    <ul>
+                        <li><a href="arbitrage_strategy_documentation.html">Strategy Documentation</a></li>
+                        <li><a href="arbitrage_fundamentals.html">Arbitrage Fundamentals</a></li>
+                        <li><a href="market_data_analysis.html">Market Data Analysis</a></li>
+                        <li><a href="arbitrage_strategy_framework.html">Strategy Framework</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ArbitragePro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Back to top button functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = 'flex';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
